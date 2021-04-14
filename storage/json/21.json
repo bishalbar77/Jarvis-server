@@ -1,0 +1,66 @@
+{
+	"candidate_data" : [
+		{
+			"candidate_name" : "",
+			"fathers_name" : "",
+			"dob" : "",
+			"address" : "",
+			"aadhar_no" : "",
+			"aadhar_file" : ""
+		}
+	],
+	
+	"antecedants_data" : [
+		{
+			"verification_date" : [
+				{
+					"field_type" : "DATE",
+					"field_value" : "",
+					"required" : "TRUE"
+				}
+			],
+			"verification_time" : [
+				{
+					"field_type" : "TIME",
+					"field_value" : "",
+					"required" : "TRUE"
+				}
+			],
+			"aadhar_number" : [
+				{
+					"field_type" : "TEXT",
+					"field_value" : "",
+					"required" : "TRUE"
+				}
+			],
+			"age_band" : [
+				{
+					"field_type" : "SELECT",
+					"field_value" : "10-20,20-30,30-40,40-50,50-60,60-70,70-80,80-90,90-100",
+					"required" : "TRUE"
+				}
+			],
+			"gender" : [
+				{
+					"field_type" : "SELECT",
+					"field_value" : "MALE,FEMALE,OTHER",
+					"required" : "TRUE"
+				}
+			],
+			"state" : [
+				{
+					"field_type" : "TEXT",
+					"field_value" : "",
+					"required" : "TRUE"
+				}
+			],
+			"record_status" : [
+				{
+					"field_type" : "SELECT",
+					"field_value" : "Record Found,No Record Found",
+					"required" : "TRUE"
+				}
+			]
+		}
+	]
+}

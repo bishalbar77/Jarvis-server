@@ -1,0 +1,165 @@
+/*extra laptop/desktop */
+ @media (max-width: 1199px){
+    .header-section p {
+    margin-right: 0px;
+    font-size: 13px;
+}
+}
+/*extra laptop/desktop */
+/* -large device */
+ @media (max-width: 991px){
+.PERSON {
+    width: 140px!important;
+    height: 140px!important;
+    border-radius: 50%!important;
+    margin-top: 30px!important;
+}
+}
+/* large device */
+/* medium device*/
+ @media (max-width: 767px){
+    .header-section .top-part h4 {
+    font-size: 18px;
+}
+.BASIC-INFO .basic-info p {
+    font-size: 15px;
+    text-align: left;
+}
+.BASIC-INFO .basic-info h6 {
+    font-size: 15px;
+}
+.PERSON {
+    width: 100px!important;
+    height: 100px!important;
+    border-radius: 50%!important;
+    margin-top: 0px!important;
+}
+.details p {
+    font-size: 15px;
+    margin-left: 20px;
+}
+.details h6 {
+    margin-right: 20px;
+    font-size: 15px;
+}
+.Timeline-details .t-details h5 {
+    font-size: 15px;
+    margin-left: 20px;
+}
+.Timeline-details .t-details p {
+    margin-bottom: 20px;
+    margin-left: 5px;
+    font-size: 12px;
+}
+.tran-details h5 {
+    font-size: 15px;
+    margin-left: 20px;
+}
+.tran-details p {
+    text-align: right;
+    font-size: 15px;
+}
+.coupon h4 {
+    font-size: 18px;
+    margin-top: 20px;
+}
+.coupon p {
+    font-size: 13px;
+    }
+    .coupon h6 {
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+}
+/* medium device */
+/* small device */
+ @media (max-width: 575px){
+.PERSON {
+    width: 60px!important;
+    height: 60px!important;
+    border-radius: 50%!important;
+    margin-top: 0px!important;
+}
+    .header-section .top-part h4 {
+    margin-top: 50px;
+    font-size: 18px;
+    margin-left: 10px;
+}
+.BASIC-INFO .basic-info p {
+    font-size: 15px;
+    text-align: left;
+}
+.BASIC-INFO .basic-info h6 {
+    font-size: 15px;
+    margin-top: 0px;
+}
+.details p {
+    font-size: 15px;
+    margin-bottom: 0px;
+    margin-left: 5px;
+}
+.details h6 {
+    margin-right: 30px;
+    font-size: 15px;
+    margin-top: 0px;
+}
+.Timeline-details .t-details h5 {
+    font-size: 15px;
+    margin-bottom: 20px;
+    margin-left: 15px;
+}
+.Timeline-details .t-details p {
+    margin-bottom: 20px;
+    margin-left: 0px;
+    font-size: 12px;
+}
+.tran-details h5 {
+    font-size: 15px;
+    margin-left: 20px;
+}
+.tran-details p {
+    text-align: right;
+    font-size: 15px;
+}
+.coupon h4 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.coupon p {
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+.coupon h6 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0E1649;
+    margin-bottom: 40px;
+}
+.Terms-Cons .conditions p {
+    font-size: 10px;
+    margin-bottom: 40px;
+    margin-top: 30px;
+}
+.Terms-Cons .conditions span {
+    color: #fff;
+    font-size: 9px;
+}
+}
+    @media(max-width: 470px){
+    .PERSON {
+    width: 60px!important;
+    height: 60px!important;
+    border-radius: 50%!important;
+    margin-top: 0px!important;
+}
+        .coupon h4 {
+    font-size: 19px;
+    font-weight: 700;
+    color: #0E1649;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+ {
+
+    }

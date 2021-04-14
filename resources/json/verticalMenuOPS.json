@@ -1,0 +1,83 @@
+{
+  "menu": [
+    {
+      "url": "/",
+      "name": "Dashboard",
+      "icon": "feather icon-home",
+      "i18n": "nav.dashboard_ecommerce"
+    },
+    {
+      "url": "",
+      "navheader": "Employers",
+      "icon": ""
+    },
+    {
+      "url": "/employers",
+      "name": "Employers",
+      "icon": "feather icon-briefcase",
+      "submenu": [
+        {
+          "url": "/employers",
+          "name": "List",
+          "icon": "feather icon-list",
+          "i18n": "nav.app_users"
+        },
+        {
+          "url": "/employers/create",
+          "name": "Add",
+          "icon": "feather icon-plus-circle",
+          "i18n": "nav.app_users_create"
+        }
+      ]
+    },
+    {
+      "url": "/employees",
+      "name": "Employees",
+      "icon": "feather icon-user",
+      "submenu": [
+        {
+          "url": "/employees",
+          "name": "List",
+          "icon": "feather icon-list",
+          "i18n": "nav.app_users"
+        },
+        {
+          "url": "/employees/create",
+          "name": "Add",
+          "icon": "feather icon-plus-circle",
+          "i18n": "nav.app_users_create"
+        }
+      ]
+    },
+    {
+      "url": "",
+      "navheader": "Order & Tasks",
+      "icon": ""
+    },
+    {
+      "url": "/orders",
+      "name": "Orders",
+      "icon": "feather icon-clipboard",
+      "submenu": [
+        {
+          "url": "/orders",
+          "name": "List",
+          "icon": "feather icon-list",
+          "i18n": "nav.app_users"
+        },
+        {
+          "url": "/orders/create",
+          "name": "Add",
+          "icon": "feather icon-plus-circle",
+          "i18n": "nav.app_users_create"
+        }
+      ]
+    },
+    {
+      "url": "/account-settings",
+      "name": "Account Settings",
+      "icon": "feather icon-settings",
+      "i18n": "nav.page_account_settings"
+    }
+  ]
+}

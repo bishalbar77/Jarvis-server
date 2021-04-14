@@ -1,0 +1,169 @@
+{
+  "menu": [
+    {
+      "url": "/",
+      "name": "Dashboard",
+      "icon": "feather icon-home",
+      "i18n": "nav.dashboard_ecommerce"
+    },
+    {
+      "url": "",
+      "navheader": "Users & Permission",
+      "icon": ""
+    },
+    {
+      "url": "/users",
+      "name": "Users",
+      "icon": "feather icon-users",
+      "submenu": [
+        {
+          "url": "/users",
+          "name": "List",
+          "icon": "feather icon-list",
+          "i18n": "nav.app_users"
+        },
+        {
+          "url": "/users/create",
+          "name": "Add",
+          "icon": "feather icon-plus-circle",
+          "i18n": "nav.app_users_create"
+        }
+      ]
+    },
+    {
+      "url": "",
+      "navheader": "Employers",
+      "icon": ""
+    },
+    {
+      "url": "/employers",
+      "name": "Employers",
+      "icon": "feather icon-briefcase",
+      "submenu": [
+        {
+          "url": "/employers",
+          "name": "List",
+          "icon": "feather icon-list",
+          "i18n": "nav.app_users"
+        },
+        {
+          "url": "/employers/create",
+          "name": "Add",
+          "icon": "feather icon-plus-circle",
+          "i18n": "nav.app_users_create"
+        }
+      ]
+    },
+    {
+      "url": "/employees",
+      "name": "Employees",
+      "icon": "feather icon-user",
+      "submenu": [
+        {
+          "url": "/employees",
+          "name": "List",
+          "icon": "feather icon-list",
+          "i18n": "nav.app_users"
+        },
+        {
+          "url": "/employees/create",
+          "name": "Add",
+          "icon": "feather icon-plus-circle",
+          "i18n": "nav.app_users_create"
+        }
+      ]
+    },
+    {
+      "url": "",
+      "navheader": "Order & Tasks",
+      "icon": ""
+    },
+    {
+      "url": "/orders",
+      "name": "Orders",
+      "icon": "feather icon-clipboard",
+      "submenu": [
+        {
+          "url": "/orders",
+          "name": "List",
+          "icon": "feather icon-list",
+          "i18n": "nav.app_users"
+        },
+        {
+          "url": "/orders/create",
+          "name": "Add",
+          "icon": "feather icon-plus-circle",
+          "i18n": "nav.app_users_create"
+        }
+      ]
+    },
+    {
+      "url": "",
+      "navheader": "Settings",
+      "icon": ""
+    },
+    {
+      "url": "/documents",
+      "name": "Documents Type",
+      "icon": "feather icon-clipboard",
+      "submenu": [
+        {
+          "url": "/documents",
+          "name": "List",
+          "icon": "feather icon-list",
+          "i18n": "nav.app_users"
+        },
+        {
+          "url": "/documents/create",
+          "name": "Add",
+          "icon": "feather icon-plus-circle",
+          "i18n": "nav.app_users_create"
+        }
+      ]
+    },
+    {
+      "url": "/employeetype",
+      "name": "Employee Type",
+      "icon": "feather icon-pocket",
+      "submenu": [
+        {
+          "url": "/employeetype",
+          "name": "List",
+          "icon": "feather icon-list",
+          "i18n": "nav.app_users"
+        },
+        {
+          "url": "/employeetype/create",
+          "name": "Add",
+          "icon": "feather icon-plus-circle",
+          "i18n": "nav.app_users_create"
+        }
+      ]
+    },
+    {
+      "url": "/verificationtype",
+      "name": "Verification Type",
+      "icon": "feather icon-file-text",
+      "submenu": [
+        {
+          "url": "/verificationtype",
+          "name": "List",
+          "icon": "feather icon-list",
+          "i18n": "nav.app_users"
+        },
+        {
+          "url": "/verificationtype/create",
+          "name": "Add",
+          "icon": "feather icon-plus-circle",
+          "i18n": "nav.app_users_create"
+        }
+      ]
+    },
+    {
+      "url": "/account-settings",
+      "name": "Account Settings",
+      "icon": "feather icon-settings",
+      "i18n": "nav.page_account_settings"
+    }
+  ]
+}
