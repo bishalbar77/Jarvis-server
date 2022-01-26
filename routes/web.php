@@ -16,29 +16,29 @@ use Illuminate\Http\Request;
 
 
 Route::get('/create-permissions', function () {
-    // Permission::create(['name' => 'dashboard']);
-    // Permission::create(['name' => 'users.index']);
-    // Permission::create(['name' => 'employers.index']);
-    // Permission::create(['name' => 'employees.index']);
-    // Permission::create(['name' => 'orders.index']);
-    // Permission::create(['name' => 'documents.index']);
-    // Permission::create(['name' => 'employeetype.index']);
-    // Permission::create(['name' => 'verificationtype.index']);
-    // Permission::create(['name' => 'severity.index']);
-    // Permission::create(['name' => 'severitymessage.index']);
-    // Permission::create(['name' => 'billing.clients']);
-    // Permission::create(['name' => 'activity.index']);
-    // Permission::create(['name' => 'apis.index']);
-    // Permission::create(['name' => 'roles.index']);
-    // Permission::create(['name' => 'billing.plans.index']);
-    // Permission::create(['name' => 'schools.index']);
-    // Permission::create(['name' => 'surveyquestions.index']);
-    // Permission::create(['name' => 'surveys.index']);
-    // Permission::create(['name' => 'searches.index']);
-    // Permission::create(['name' => 'searches.cosmos']);
-    // Permission::create(['name' => 'searches.vp']);
-    // Permission::create(['name' => 'searches.fir']);
-    // Permission::create(['name' => 'searches.webmedia']);
+    Permission::create(['name' => 'dashboard']);
+    Permission::create(['name' => 'users.index']);
+    Permission::create(['name' => 'employers.index']);
+    Permission::create(['name' => 'employees.index']);
+    Permission::create(['name' => 'orders.index']);
+    Permission::create(['name' => 'documents.index']);
+    Permission::create(['name' => 'employeetype.index']);
+    Permission::create(['name' => 'verificationtype.index']);
+    Permission::create(['name' => 'severity.index']);
+    Permission::create(['name' => 'severitymessage.index']);
+    Permission::create(['name' => 'billing.clients']);
+    Permission::create(['name' => 'activity.index']);
+    Permission::create(['name' => 'apis.index']);
+    Permission::create(['name' => 'roles.index']);
+    Permission::create(['name' => 'billing.plans.index']);
+    Permission::create(['name' => 'schools.index']);
+    Permission::create(['name' => 'surveyquestions.index']);
+    Permission::create(['name' => 'surveys.index']);
+    Permission::create(['name' => 'searches.index']);
+    Permission::create(['name' => 'searches.cosmos']);
+    Permission::create(['name' => 'searches.vp']);
+    Permission::create(['name' => 'searches.fir']);
+    Permission::create(['name' => 'searches.webmedia']);
 
     echo "<pre>"; print_r('permissions created successfully!'); exit();
 

@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use App\User;
 use Session;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -80,12 +81,11 @@ class LoginController extends Controller
       $request->validate([
           'email' => 'required|string|email',
           'password' => 'required|string',
-          'remember' => 'boolean'
       ]);
 
       if($jarvis_user = JarvisUser::where(['email' => $request->email, 'status' => 'A'])->first()){
 
-          if($jarvis_user->password != md5($request->password)){
+          if(!Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             return redirect('login')
               ->withInput($request->only('email', 'remember'))
               ->withErrors([

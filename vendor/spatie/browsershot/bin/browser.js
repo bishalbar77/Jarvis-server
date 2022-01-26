@@ -1,4 +1,3 @@
-const puppeteer = require('puppeteer');
 const fs = require('fs');
 const URL = require('url').URL;
 const URLParse = require('url').parse;
@@ -42,7 +41,7 @@ const callChrome = async pup => {
     let page;
     let output;
     let remoteInstance;
-	const puppet = (pup || puppeteer);
+    const puppet = (pup || require('puppeteer'));
 
     try {
         if (request.options.remoteInstanceUrl || request.options.browserWSEndpoint ) {
@@ -70,7 +69,11 @@ const callChrome = async pup => {
                 ignoreHTTPSErrors: request.options.ignoreHttpsErrors,
                 executablePath: request.options.executablePath,
                 args: request.options.args || [],
-                pipe: request.options.pipe || false
+                pipe: request.options.pipe || false,
+                env: {
+                    ...(request.options.env || {}),
+                    ...process.env
+                },
             });
         }
 
@@ -82,42 +85,63 @@ const callChrome = async pup => {
 
         await page.setRequestInterception(true);
 
-        page.on('request', request => {
+        if (request.postParams) {
+            const postParamsArray = request.postParams;
+            const queryString = Object.keys(postParamsArray)
+                .map(key => `${key}=${postParamsArray[key]}`)
+                .join('&');
+            page.once("request", interceptedRequest => {
+                interceptedRequest.continue({
+                    method: "POST",
+                    postData: queryString,
+                    headers: {
+                        ...interceptedRequest.headers(),
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    }
+                });
+            });
+        }
+
+        page.on('request', interceptedRequest => {
+            var headers = interceptedRequest.headers();
+
             requestsList.push({
-                url: request.url(),
+                url: interceptedRequest.url(),
             });
-            request.continue();
+
+            if (request.options && request.options.disableImages) {
+                if (interceptedRequest.resourceType() === 'image') {
+                    interceptedRequest.abort();
+                    return;
+                }
+            }
+
+            if (request.options && request.options.blockDomains) {
+                const hostname = URLParse(interceptedRequest.url()).hostname;
+                if (request.options.blockDomains.includes(hostname)) {
+                    interceptedRequest.abort();
+                    return;
+                }
+            }
+
+            if (request.options && request.options.blockUrls) {
+                request.options.blockUrls.forEach(function(value) {
+                    if (interceptedRequest.url().indexOf(value) >= 0) {
+                        interceptedRequest.abort();
+                        return;
+                    }
+                });
+            }
+
+            if (request.options && request.options.extraNavigationHTTPHeaders) {
+                // Do nothing in case of non-navigation requests.
+                if (interceptedRequest.isNavigationRequest()) {
+                    headers = Object.assign({}, headers, request.options.extraNavigationHTTPHeaders);
+                }
+            }
+
+            interceptedRequest.continue({headers});
         });
-
-        if (request.options && request.options.disableImages) {
-            page.on('request', request => {
-                if (request.resourceType() === 'image')
-                    request.abort();
-                else
-                    request.continue();
-            });
-        }
-
-        if (request.options && request.options.blockDomains) {
-            var domainsArray = JSON.parse(request.options.blockDomains);
-            page.on('request', request => {
-                const hostname = URLParse(request.url()).hostname;
-                domainsArray.forEach(function(value){
-                    if (hostname.indexOf(value) >= 0) request.abort();
-                });
-                request.continue();
-            });
-        }
-
-        if (request.options && request.options.blockUrls) {
-            var urlsArray = JSON.parse(request.options.blockUrls);
-            page.on('request', request => {
-                urlsArray.forEach(function(value){
-                    if (request.url().indexOf(value) >= 0) request.abort();
-                });
-                request.continue();
-            });
-        }
 
         if (request.options && request.options.dismissDialogs) {
             page.on('dialog', async dialog => {
@@ -130,7 +154,7 @@ const callChrome = async pup => {
         }
 
         if (request.options && request.options.device) {
-            const devices = puppeteer.devices;
+            const devices = puppet.devices;
             const device = devices[request.options.device];
             await page.emulate(device);
         }
@@ -168,7 +192,15 @@ const callChrome = async pup => {
             requestOptions.waitUntil = request.options.waitUntil;
         }
 
-        await page.goto(request.url, requestOptions);
+        const response = await page.goto(request.url, requestOptions);
+
+        if (request.options.preventUnsuccessfulResponse) {
+            const status = response.status()
+
+            if (status >= 400 && status < 600) {
+                throw {type: "UnsuccessfulResponse", status};
+            }
+        }
 
         if (request.options && request.options.disableImages) {
             await page.evaluate(() => {
@@ -215,11 +247,22 @@ const callChrome = async pup => {
         }
 
         if (request.options.delay) {
-            await page.waitFor(request.options.delay);
+            await page.waitForTimeout(request.options.delay);
         }
 
         if (request.options.selector) {
-            const element = await page.$(request.options.selector);
+            var element;
+            const index = request.options.selectorIndex || 0;
+            if(index){
+                element = await page.$$(request.options.selector);
+                if(!element.length || typeof element[index] === 'undefined'){
+                    element = null;
+                }else{
+                    element = element[index];
+                }
+            }else{
+                element = await page.$(request.options.selector);
+            }
             if (element === null) {
                 throw {type: 'ElementNotFound'};
             }
@@ -256,6 +299,12 @@ const callChrome = async pup => {
             await remoteInstance ? browser.disconnect() : browser.close();
         }
 
+        if (exception.type === 'UnsuccessfulResponse') {
+            console.error(exception.status)
+
+            process.exit(3);
+        }
+
         console.error(exception);
 
         if (exception.type === 'ElementNotFound') {
@@ -267,7 +316,7 @@ const callChrome = async pup => {
 };
 
 if (require.main === module) {
-	callChrome();
+    callChrome();
 }
 
 exports.callChrome = callChrome;

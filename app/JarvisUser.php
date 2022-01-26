@@ -15,8 +15,8 @@ class JarvisUser extends Model
      */
     protected $fillable = [
     	'user_id',
-		'is_super_admin',
-		'source',
-		'status',
+      'is_super_admin',
+      'source',
+      'status',
     ];
 }

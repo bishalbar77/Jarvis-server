@@ -164,7 +164,7 @@
                               <small>Tasks</small>
                           </div>
                           <div class="col-sm-10 col-12 d-flex justify-content-center">
-                              <div id="support-tracker-chart" data-id="{{ number_format(($complete / ($created + $inprogress + $complete))*100, 2) }}"></div>
+                              <div id="support-tracker-chart" data-id="0"></div>
                           </div>
                       </div>
                       <div class="chart-info d-flex justify-content-between">

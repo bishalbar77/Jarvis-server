@@ -49,8 +49,8 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        $messege = 'Exception Found:: On IP::'.$request->ip().'Url::'.$request->url().'Messege::'.$exception->getMessage();
-        Notification::route('slack', env('SLACK_HOOK'))->notify(new ErrorNotification($messege));
+        // $messege = 'Exception Found:: On IP::'.$request->ip().'Url::'.$request->url().'Messege::'.$exception->getMessage();
+        // Notification::route('slack', env('SLACK_HOOK'))->notify(new ErrorNotification($messege));
         return parent::render($request, $exception);
     }
 }

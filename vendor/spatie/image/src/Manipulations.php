@@ -2,62 +2,62 @@
 
 namespace Spatie\Image;
 
-use League\Flysystem\FileNotFoundException;
+use League\Glide\Filesystem\FileNotFoundException;
 use ReflectionClass;
 use Spatie\Image\Exceptions\InvalidManipulation;
 
 class Manipulations
 {
-    const CROP_TOP_LEFT = 'crop-top-left';
-    const CROP_TOP = 'crop-top';
-    const CROP_TOP_RIGHT = 'crop-top-right';
-    const CROP_LEFT = 'crop-left';
-    const CROP_CENTER = 'crop-center';
-    const CROP_RIGHT = 'crop-right';
-    const CROP_BOTTOM_LEFT = 'crop-bottom-left';
-    const CROP_BOTTOM = 'crop-bottom';
-    const CROP_BOTTOM_RIGHT = 'crop-bottom-right';
+    public const CROP_TOP_LEFT = 'crop-top-left';
+    public const CROP_TOP = 'crop-top';
+    public const CROP_TOP_RIGHT = 'crop-top-right';
+    public const CROP_LEFT = 'crop-left';
+    public const CROP_CENTER = 'crop-center';
+    public const CROP_RIGHT = 'crop-right';
+    public const CROP_BOTTOM_LEFT = 'crop-bottom-left';
+    public const CROP_BOTTOM = 'crop-bottom';
+    public const CROP_BOTTOM_RIGHT = 'crop-bottom-right';
 
-    const ORIENTATION_AUTO = 'auto';
-    const ORIENTATION_90 = 90;
-    const ORIENTATION_180 = 180;
-    const ORIENTATION_270 = 270;
+    public const ORIENTATION_AUTO = 'auto';
+    public const ORIENTATION_90 = 90;
+    public const ORIENTATION_180 = 180;
+    public const ORIENTATION_270 = 270;
 
-    const FLIP_HORIZONTALLY = 'h';
-    const FLIP_VERTICALLY = 'v';
-    const FLIP_BOTH = 'both';
+    public const FLIP_HORIZONTALLY = 'h';
+    public const FLIP_VERTICALLY = 'v';
+    public const FLIP_BOTH = 'both';
 
-    const FIT_CONTAIN = 'contain';
-    const FIT_MAX = 'max';
-    const FIT_FILL = 'fill';
-    const FIT_STRETCH = 'stretch';
-    const FIT_CROP = 'crop';
+    public const FIT_CONTAIN = 'contain';
+    public const FIT_MAX = 'max';
+    public const FIT_FILL = 'fill';
+    public const FIT_STRETCH = 'stretch';
+    public const FIT_CROP = 'crop';
 
-    const BORDER_OVERLAY = 'overlay';
-    const BORDER_SHRINK = 'shrink';
-    const BORDER_EXPAND = 'expand';
+    public const BORDER_OVERLAY = 'overlay';
+    public const BORDER_SHRINK = 'shrink';
+    public const BORDER_EXPAND = 'expand';
 
-    const FORMAT_JPG = 'jpg';
-    const FORMAT_PJPG = 'pjpg';
-    const FORMAT_PNG = 'png';
-    const FORMAT_GIF = 'gif';
-    const FORMAT_WEBP = 'webp';
+    public const FORMAT_JPG = 'jpg';
+    public const FORMAT_PJPG = 'pjpg';
+    public const FORMAT_PNG = 'png';
+    public const FORMAT_GIF = 'gif';
+    public const FORMAT_WEBP = 'webp';
 
-    const FILTER_GREYSCALE = 'greyscale';
-    const FILTER_SEPIA = 'sepia';
+    public const FILTER_GREYSCALE = 'greyscale';
+    public const FILTER_SEPIA = 'sepia';
 
-    const UNIT_PIXELS = 'px';
-    const UNIT_PERCENT = '%';
+    public const UNIT_PIXELS = 'px';
+    public const UNIT_PERCENT = '%';
 
-    const POSITION_TOP_LEFT = 'top-left';
-    const POSITION_TOP = 'top';
-    const POSITION_TOP_RIGHT = 'top-right';
-    const POSITION_LEFT = 'left';
-    const POSITION_CENTER = 'center';
-    const POSITION_RIGHT = 'right';
-    const POSITION_BOTTOM_LEFT = 'bottom-left';
-    const POSITION_BOTTOM = 'bottom';
-    const POSITION_BOTTOM_RIGHT = 'bottom-right';
+    public const POSITION_TOP_LEFT = 'top-left';
+    public const POSITION_TOP = 'top';
+    public const POSITION_TOP_RIGHT = 'top-right';
+    public const POSITION_LEFT = 'left';
+    public const POSITION_CENTER = 'center';
+    public const POSITION_RIGHT = 'right';
+    public const POSITION_BOTTOM_LEFT = 'bottom-left';
+    public const POSITION_BOTTOM = 'bottom';
+    public const POSITION_BOTTOM_RIGHT = 'bottom-right';
 
     /** @var \Spatie\Image\ManipulationSequence */
     protected $manipulationSequence;
@@ -143,15 +143,22 @@ class Manipulations
      * @param int $height
      * @param int $focalX Crop center X in percent
      * @param int $focalY Crop center Y in percent
+     * @param float $zoom
      *
      * @return $this
+     *
+     * @throws InvalidManipulation
      */
-    public function focalCrop(int $width, int $height, int $focalX, int $focalY)
+    public function focalCrop(int $width, int $height, int $focalX, int $focalY, float $zoom = 1)
     {
+        if ($zoom < 1 || $zoom > 100) {
+            throw InvalidManipulation::valueNotInRange('zoom', $zoom, 1, 100);
+        }
+
         $this->width($width);
         $this->height($height);
 
-        return $this->addManipulation('crop', "crop-{$focalX}-{$focalY}");
+        return $this->addManipulation('crop', "crop-{$focalX}-{$focalY}-{$zoom}");
     }
 
     /**
@@ -190,7 +197,7 @@ class Manipulations
             throw InvalidManipulation::invalidWidth($width);
         }
 
-        return $this->addManipulation('width', $width);
+        return $this->addManipulation('width', (string)$width);
     }
 
     /**
@@ -206,7 +213,7 @@ class Manipulations
             throw InvalidManipulation::invalidHeight($height);
         }
 
-        return $this->addManipulation('height', $height);
+        return $this->addManipulation('height', (string)$height);
     }
 
     /**
@@ -247,7 +254,7 @@ class Manipulations
             throw InvalidManipulation::valueNotInRange('ratio', $ratio, 1, 8);
         }
 
-        return $this->addManipulation('devicePixelRatio', $ratio);
+        return $this->addManipulation('devicePixelRatio', (string)$ratio);
     }
 
     /**
@@ -263,7 +270,7 @@ class Manipulations
             throw InvalidManipulation::valueNotInRange('brightness', $brightness, -100, 100);
         }
 
-        return $this->addManipulation('brightness', $brightness);
+        return $this->addManipulation('brightness', (string)$brightness);
     }
 
     /**
@@ -279,7 +286,7 @@ class Manipulations
             throw InvalidManipulation::valueNotInRange('gamma', $gamma, 0.01, 9.00);
         }
 
-        return $this->addManipulation('gamma', $gamma);
+        return $this->addManipulation('gamma', (string)$gamma);
     }
 
     /**
@@ -295,7 +302,7 @@ class Manipulations
             throw InvalidManipulation::valueNotInRange('contrast', $contrast, -100, 100);
         }
 
-        return $this->addManipulation('contrast', $contrast);
+        return $this->addManipulation('contrast', (string)$contrast);
     }
 
     /**
@@ -311,7 +318,7 @@ class Manipulations
             throw InvalidManipulation::valueNotInRange('sharpen', $sharpen, 0, 100);
         }
 
-        return $this->addManipulation('sharpen', $sharpen);
+        return $this->addManipulation('sharpen', (string)$sharpen);
     }
 
     /**
@@ -327,7 +334,7 @@ class Manipulations
             throw InvalidManipulation::valueNotInRange('blur', $blur, 0, 100);
         }
 
-        return $this->addManipulation('blur', $blur);
+        return $this->addManipulation('blur', (string)$blur);
     }
 
     /**
@@ -343,7 +350,7 @@ class Manipulations
             throw InvalidManipulation::valueNotInRange('pixelate', $pixelate, 0, 1000);
         }
 
-        return $this->addManipulation('pixelate', $pixelate);
+        return $this->addManipulation('pixelate', (string)$pixelate);
     }
 
     /**
@@ -411,7 +418,7 @@ class Manipulations
             throw InvalidManipulation::valueNotInRange('quality', $quality, 0, 100);
         }
 
-        return $this->addManipulation('quality', $quality);
+        return $this->addManipulation('quality', (string)$quality);
     }
 
     /**
@@ -482,7 +489,7 @@ class Manipulations
     {
         $width = ($unit == static::UNIT_PERCENT ? $width.'w' : $width);
 
-        return $this->addManipulation('watermarkWidth', $width);
+        return $this->addManipulation('watermarkWidth', (string)$width);
     }
 
     /**
@@ -495,7 +502,7 @@ class Manipulations
     {
         $height = ($unit == static::UNIT_PERCENT ? $height.'h' : $height);
 
-        return $this->addManipulation('watermarkHeight', $height);
+        return $this->addManipulation('watermarkHeight', (string)$height);
     }
 
     /**
@@ -532,8 +539,8 @@ class Manipulations
         $xPadding = ($unit == static::UNIT_PERCENT ? $xPadding.'w' : $xPadding);
         $yPadding = ($unit == static::UNIT_PERCENT ? $yPadding.'h' : $yPadding);
 
-        $this->addManipulation('watermarkPaddingX', $xPadding);
-        $this->addManipulation('watermarkPaddingY', $yPadding);
+        $this->addManipulation('watermarkPaddingX', (string)$xPadding);
+        $this->addManipulation('watermarkPaddingY', (string)$yPadding);
 
         return $this;
     }
@@ -573,7 +580,7 @@ class Manipulations
             throw InvalidManipulation::valueNotInRange('opacity', $opacity, 0, 100);
         }
 
-        return $this->addManipulation('watermarkOpacity', $opacity);
+        return $this->addManipulation('watermarkOpacity', (string)$opacity);
     }
 
     /**

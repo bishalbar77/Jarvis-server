@@ -1,3 +1,5 @@
+<p align="center"><img src="/art/socialcard.png" alt="Social Card of Spatie's Browsershot"></p>
+
 # Convert a webpage to an image or pdf using headless Chrome
 
 [![Latest Version](https://img.shields.io/github/release/spatie/browsershot.svg?style=flat-square)](https://github.com/spatie/browsershot/releases)
@@ -50,7 +52,9 @@ foreach ($requests as $request) {
 
 ## Support us
 
-[![Image](https://github-ads.s3.eu-central-1.amazonaws.com/browsershot.jpg)](https://spatie.be/github-ad-click/browsershot)
+Learn how to create a package like this one, by watching our premium video course:
+
+[![Laravel Package training](https://spatie.be/github/package-training.jpg)](https://laravelpackage.training)
 
 We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
 
@@ -72,11 +76,11 @@ Or you could opt to just install it globally
 npm install puppeteer --global
 ```
 
-On a [Forge](https://forge.laravel.com) provisioned Ubuntu 16.04 server you can install the latest stable version of Chrome like this:
+On a [Forge](https://forge.laravel.com) provisioned Ubuntu 20.04 server you can install the latest stable version of Chrome like this:
 
 ```bash
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-sudo apt-get install -y nodejs gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgbm1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget libgbm-dev
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+sudo apt-get install -y nodejs gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgbm1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget libgbm-dev libxshmfence-dev
 sudo npm install --global --unsafe-perm puppeteer
 sudo chmod -R o+rx /usr/lib/node_modules/puppeteer/.local-chromium
 ```
@@ -225,17 +229,17 @@ Browsershot::url('https://example.com')
     ->save($pathToImage);
 ```
 
-You can take a screenshot of an element matching a selector using `select`.
+You can take a screenshot of an element matching a selector using `select` and an optional `$selectorIndex` which is used to select the nth element (e.g. use `$selectorIndex = 3` to get the fourth element like `div:eq(3)`). By default `$selectorIndex` is `0` which represents the first matching element.
 
 ```php
 Browsershot::url('https://example.com')
-    ->select('.some-selector')
+    ->select('.some-selector', $selectorIndex)
     ->save($pathToImage);
 ```
 
 ### Getting a screenshot as base64
 
-If you need the base64 version of a screenshot you can use the `base64Screenshot` method. This can come in handy when you need don't want to save the screenshot on disk.
+If you need the base64 version of a screenshot you can use the `base64Screenshot` method. This can come in handy when you don't want to save the screenshot on disk.
 
 ```php
 $base64Data = Browsershot::url('https://example.com')
@@ -358,7 +362,7 @@ Browsershot::url('https://example.com')
     ->blockUrls($urlsList)
     ->save($pathToImage);
 ```
-    
+
 #### Block Domains
 You can completely block connections to specific domains using the `blockDomains()` method.
 Useful to block advertisements and trackers to make screenshot creation faster.
@@ -424,6 +428,16 @@ $image = Browsershot::url('https://example.com')
     ->screenshot()
 ```
 
+#### Setting the user data directory
+
+You can set the [user data directory](https://chromium.googlesource.com/chromium/src/+/refs/heads/main/docs/user_data_dir.md) that is used to store the browser session and additional data. Setting this to a static value may introduce cache problems, could also increase performance. It needs to be an absolute path.
+
+```php
+$image = Browsershot::url('https://example.com')
+    ->userDataDir('/tmp/session-1')
+    ->screenshot()
+```
+
 ### PDFs
 
 Browsershot will save a pdf if the path passed to the `save` method has a `pdf` extension.
@@ -445,6 +459,12 @@ You can also pass some html which will be converted to a pdf.
 Browsershot::html($someHtml)->savePdf('example.pdf');
 ```
 
+If you need the base64 version of a PDF you can use the `base64pdf` method. This can come in handy when you don't want to save the screenshot on disk in environments like Heroku that don't allow you to save a file. You can then proceed to create the file and upload it directly as a base64 string using a package like [Laravel Media Library](https://spatie.be/docs/laravel-medialibrary/v9/api/adding-files#addmediafrombase64).
+
+```php
+$base64Data = Browsershot::url('https://example.com')
+    ->base64pdf();
+```
 #### Sizing the pdf
 
 You can specify the width and the height.
@@ -462,7 +482,7 @@ Optionally you can give a custom unit to the `paperSize` as the third parameter.
 You can use the `format` method and provide a format size:
 
 ```php
-Browsershot::html('https://example.com')->format('A4')->save('example.pdf');
+Browsershot::url('https://example.com')->format('A4')->save('example.pdf');
 ```
 
 The `format` options available by puppeteer are:
@@ -533,6 +553,16 @@ Call `landscape` if you want to resulting pdf to be landscape oriented.
 Browsershot::html($someHtml)
    ->landscape()
    ->save('example.pdf');
+```
+
+#### Scale
+
+Scale can be set. Defaults to 1. Scale amount must be between 0.1 and 2.
+
+```php
+Browsershot::html($someHtml)
+    ->scale(0.5)
+    ->save('example.pdf');
 ```
 
 #### Only export specific pages
@@ -624,6 +654,8 @@ Browsershot::url('https://example.com')
     ->savePdf($pathToPdf);
 ```
 
+#### Setting the timeout
+
 The default timeout of Browsershot is set to 60 seconds. Of course, you can modify this timeout:
 
 ```php
@@ -652,6 +684,16 @@ Browsershot::url('https://example.com')
    ...
 ```
 
+#### Prevent unsuccessful response
+
+You may want to throw an error when the page response is unsuccessful, you can use the following method :
+
+```php
+Browsershot::url('https://example.com')
+   ->preventUnsuccessfulResponse()
+    ...
+```
+
 #### Specify a proxy Server
 
 You can specify a proxy server to use when connecting. The argument passed to `setProxyServer` will be passed to the `--proxy-server=` option of Chromium. More info here: https://www.chromium.org/developers/design-documents/network-settings#TOC-Command-line-options-for-proxy-settings
@@ -662,9 +704,21 @@ Browsershot::url('https://example.com')
    ...
 ```
 
-#### Setting extraHTTPHeaders
+#### Added extra headers to the navigational request
 
-To send custom HTTP headers, set the extraHTTPHeaders option like so:
+To add custom HTTP headers to a navigational HTTP request, use `extraNavigationHTTPHeaders` like so:
+
+```php
+Browsershot::url('https://example.com')
+    ->setExtraNavigationHttpHeaders(['Custom-Header-Name' => 'Custom-Header-Value'])
+   ...
+```
+
+This will add the header to the page you want to render, but those headers will not be added to any external resources that make up that page.
+
+#### Adding extra headers to every request
+
+To add custom HTTP headers to the navigational HTTP request and all resources that make up the page, use `setExtraHttpHeaders`:
 
 ```php
 Browsershot::url('https://example.com')
@@ -697,6 +751,17 @@ You can specify the domain to register cookies to, if necessary:
 ```php
 Browsershot::url('https://example.com')
     ->useCookies(['Cookie-Key' => 'Cookie-Value'], 'ui.example.com')
+   ...
+```
+
+#### Sending POST requests
+
+By default, all requests sent using GET method. You can make POST request to the given url by using the `post` method.
+Note: POST request sent using `application/x-www-form-urlencoded` content type.
+
+```php
+Browsershot::url('https://example.com')
+    ->post(['foo' => 'bar'])
    ...
 ```
 
@@ -773,11 +838,21 @@ Browsershot::url('https://example.com')
 
 #### Using a pipe instead of a WebSocket
 
-If you want to connects to the browser over a pipe instead of a WebSocket, you can use:
+If you want to connect to the browser over a pipe instead of a WebSocket, you can use:
 
 ```php
 Browsershot::url('https://example.com')
    ->usePipe()
+   ...
+```
+
+#### Passing environment variables to the browser
+
+If you want to set custom environment variables which affect the browser instance you can use:
+
+```php
+Browsershot::url('https://example.com')
+   ->setEnvironmentOptions(['TZ' => 'Pacific/Auckland'])
    ...
 ```
 
@@ -797,12 +872,14 @@ If you discover any security related issues, please email freek@spatie.be instea
 
 If you're not able to install Node and Puppeteer, take a look at [v2 of browsershot](https://github.com/spatie/browsershot/tree/2.4.1), which uses Chrome headless CLI to take a screenshot. `v2` is not maintained anymore, but should work pretty well.
 
-If using headless Chrome does not work for you take a lookat at `v1` of this package which uses the abandoned `PhantomJS` binary.
+If using headless Chrome does not work for you take a look at at `v1` of this package which uses the abandoned `PhantomJS` binary.
 
 ## Credits
 
 - [Freek Van der Herten](https://github.com/freekmurze)
 - [All Contributors](../../contributors)
+
+And a special thanks to [Caneco](https://twitter.com/caneco) for the logo ✨
 
 ## License
 

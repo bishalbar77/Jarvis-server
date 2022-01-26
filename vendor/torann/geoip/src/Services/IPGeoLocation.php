@@ -51,5 +51,6 @@ class IPGeoLocation extends AbstractService
         $json = json_decode($data[0], true);
 
         return $this->hydrate($json);
+
     }
 }

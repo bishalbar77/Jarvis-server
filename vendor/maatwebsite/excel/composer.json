@@ -16,14 +16,14 @@
   "authors": [
     {
       "name": "Patrick Brouwers",
-      "email": "patrick@maatwebsite.nl"
+      "email": "patrick@spartner.nl"
     }
   ],
   "require": {
     "ext-json": "*",
-    "php": "^7.0",
-    "phpoffice/phpspreadsheet": "^1.14",
-    "illuminate/support": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0"
+    "php": "^7.0|^8.0",
+    "phpoffice/phpspreadsheet": "^1.18",
+    "illuminate/support": "5.8.*|^6.0|^7.0|^8.0"
   },
   "require-dev": {
     "orchestra/testbench": "^6.0",

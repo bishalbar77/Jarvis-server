@@ -1,6 +1,105 @@
+## 3.52.2 - 2021-12-14
+
+- Add debug output to vague `CouldNotTakeBrowsershot` exception
+
+**Full Changelog**: https://github.com/spatie/browsershot/compare/3.52.1...3.52.2
+
+## 3.52.1 - 2021-11-24
+
+## What's Changed
+
+- Fix Apple Silicon Path Issue by @aerni in https://github.com/spatie/browsershot/pull/581
+
+## New Contributors
+
+- @aerni made their first contribution in https://github.com/spatie/browsershot/pull/581
+
+**Full Changelog**: https://github.com/spatie/browsershot/compare/3.52.0...3.52.1
+
 ## Changelog
 
 All notable changes to `Browsershot` will be documented in this file
+
+## 3.52.0 - 2021-10-27
+
+- Prevent unsuccessful response by @mikaelpopowicz in https://github.com/spatie/browsershot/pull/576
+
+## 3.51.0 - 2021-10-27
+
+- 🚀 Support PHP 8.1 by @Nielsvanpach in https://github.com/spatie/browsershot/pull/567
+- Fix incorrect method reference in README by @intrepidws in https://github.com/spatie/browsershot/pull/570
+
+## 3.50.2 - 2021-09-22
+
+- fix `blockDomains` and `blockUrls` methods (#564)
+
+## 3.50.1 - 2021-08-27
+
+- fix browser.js to only abort or continue the request once (#548)
+
+## 3.50.0 - 2021-08-21
+
+- added functionality to only send headers with navigational requests (#542)
+
+## 3.49.0 - 2021-08-05
+
+- add support for the --user-data-dir flag (#540)
+
+## 3.48.0 - 2021-07-28
+
+- support spatie/image v2
+
+## 3.47.0 - 2021-06-10
+
+- re-add support for symfony/process:^4.2
+
+## 3.46.0 - 2021-05-24
+
+- add `base64pdf` method (#512)
+
+## 3.45.0 - 2021-04-20
+
+- add ability to make POST requests (#496)
+
+## 3.44.1. - 2021-04-09
+
+- bump temporary-directory to version 2.0 (#495)
+
+## 3.44.0 - 2021-02-05
+
+- add scale option (#478)
+
+## 3.43.0 - 2021-01-29
+
+- add support for scale option in PDF (#478)
+
+## 3.42.0 - 2021-01-11
+
+- introduce a selectorIndex to bypass querySelector restrictions (#468)
+
+## 3.41.2 - 2020-12-27
+
+- improve local require for puppeteer (#461)
+
+## 3.41.1 - 2020-12-08
+
+- replace `waitFor` with `waitForTimeout` (#452)
+
+## 3.41.0 - 2020-19-11
+
+- adding ability to pass envars to browser instance (#448)
+
+## 3.40.3 - 2020-11-12
+
+- add support for PHP 8
+
+## 3.40.2 - 2020-11-11
+
+- revert changes from previous version
+
+## 3.40.1 - 2020-11-06
+
+- prevent local files from being rendered
 
 ## 3.40.0 - 2020-10-07
 
@@ -212,95 +311,125 @@ All notable changes to `Browsershot` will be documented in this file
 - make `paperSize` use floats instead of integers, addressing US paper sizes
 
 ### 3.5.0 - 2017-10-28
+
 - add `mobile` and `touch` functions
 
 ### 3.4.0 - 2017-10-27
+
 - add `ignoreHttpsErrors`
 
 ### 3.3.1 - 2017-10-26
-- fix default npm path 
+
+- fix default npm path
 
 ### 3.3.0 - 2017-10-25
+
 - add `noSandbox`
 
 ### 3.2.1 - 2017-10-25
+
 - fix setting margins
 
 ### 3.2.0 - 2017-10-18
+
 - add `setNetworkIdleTimeout`
 
 ### 3.1.0 - 2017-10-18
+
 - make node and npm paths configurable
 - improved out of the box experience for Laravel Valet users
 
 ### 3.0.0 - 2017-10-16
+
 - use Puppeteer to call Chrome
 - add various options enabled by using Puppeteer
 
 ### 2.4.1 - 2017-09-27
+
 - add the default path for linux Chromium users
 
 ### 2.4.0 - 2017-09-21
+
 - add `bodyHtml` method
 
 ### 2.3.0 - 2017-09-19
+
 - add high pixel density support
 
 ### 2.2.0 - 2017-08-31
+
 - add support for directly converting some html
 
 ### 2.1.0 - 2017-08-06
+
 - add support for saving `pdf`s
 
 ### 2.0.3 - 2017-07-05
+
 - lower `symfony/process` requirement
 
 ### 2.0.2 - 2017-07-05
+
 - security improvements
 - clean up unneeded files
 
 ### 2.0.1 - 2017-07-04
+
 - add support for urls with special characters
 
 ### 2.0.0 - 2017-07-03
+
 - complete rewrite
 - ditch PhantomJS is favour of headless Chrome
 
 ### 1.9.1 - 2017-06-02
+
 - fix error message
 
 ### 1.7.0 - 2017-05-13
+
 - added support MacOS
 
 ### 1.8.0 - 2017-04-27
+
 - added support for setting a custom user agent
 
 ### 1.8.0 - 2017-04-27
+
 - added support for setting a custom user agent
 
 ### 1.7.0 - 2017-03-14
+
 - added support for W w w windows
 
 ### 1.6.0 - 2017-01-02
+
 - added support for some more extensions
 
 ### 1.5.4 - 2016-12-17
+
 - make `width` protected
 
 ### 1.5.3 - 2016-11-12
+
 - Fix width issues
 
 ### 1.5.2 - 2016-08-18
+
 - Upgrade `phantomjs` binary
 
 ### 1.5.1 - 2016-04-25
+
 - Fixed a bug where phantomjs keeps on rendering until the end of time
 
 ### 1.5.0
+
 - Added a method to set the background color
 
 ### 1.4.0
+
 - Added timeout parameter
 
 ### 1.3.0
+
 - Added quality parameter
